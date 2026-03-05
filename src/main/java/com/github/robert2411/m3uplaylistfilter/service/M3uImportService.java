@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.Timer;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +42,7 @@ public class M3uImportService {
         this.parser = parser;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = IOException.class)
     public void importPlaylist() throws IOException {
         long startTime = System.currentTimeMillis();
         SourceConfig config = sourceRepo.findAll().stream().findFirst()
