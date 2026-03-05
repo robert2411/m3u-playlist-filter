@@ -20,6 +20,10 @@
         <form method="post" th:action="@{/categories/exclude-empty}">
             <button class="btn btn-warning btn-sm" type="submit">Exclude Empty</button>
         </form>
+        <form method="post" th:action="@{/categories/delete-empty}">
+            <button class="btn btn-danger btn-sm" type="submit"
+                    onclick="return confirm('Delete all categories with 0 entries? This cannot be undone.')">Remove Empty</button>
+        </form>
     </div>
 
     <!-- Sort controls (shared across tabs, reloads page) -->
