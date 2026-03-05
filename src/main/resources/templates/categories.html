@@ -15,6 +15,13 @@
         Most TV apps crash above ~50 000. Exclude some large series/VOD categories.
     </div>
 
+    <!-- Global actions -->
+    <div class="mb-3 d-flex gap-2 align-items-center flex-wrap">
+        <form method="post" th:action="@{/categories/exclude-empty}">
+            <button class="btn btn-warning btn-sm" type="submit">Exclude Empty</button>
+        </form>
+    </div>
+
     <!-- Sort controls (shared across tabs, reloads page) -->
     <div class="mb-3 d-flex gap-2 align-items-center">
         <div class="btn-group">

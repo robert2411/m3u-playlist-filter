@@ -101,6 +101,13 @@ public class CategoryController {
         return "redirect:/categories";
     }
 
+    @PostMapping("/categories/exclude-empty")
+    @Transactional
+    public String excludeEmpty() {
+        filterRepo.excludeEmptyGroups();
+        return "redirect:/categories";
+    }
+
     @PostMapping("/categories/exclude-all")
     @Transactional
     public String excludeAll(@RequestParam(required = false) String type) {
