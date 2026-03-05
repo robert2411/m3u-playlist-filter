@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Home')}"></head>
+<body>
+<nav th:replace="~{layout :: nav}"></nav>
+<div class="container">
+    <div class="py-4">
+        <h1 class="mb-1">M3U Playlist Filter</h1>
+        <p class="text-muted">Filter a remote M3U playlist by category and expose a clean URL for your IPTV player.</p>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-sm-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <div class="display-6 fw-bold" th:text="${totalEntries}">0</div>
+                    <div class="text-muted small">Total entries</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <div class="display-6 fw-bold" th:text="${includedCategories}">0</div>
+                    <div class="text-muted small">Categories included</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <div class="display-6 fw-bold" th:text="${totalCategories}">0</div>
+                    <div class="text-muted small">Total categories</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">1. Configure source</h5>
+                    <p class="card-text text-muted flex-grow-1">Set your remote M3U URL and trigger an import.</p>
+                    <div>
+                        <span th:if="${config != null and config.lastImported != null}" class="badge bg-success mb-2">
+                            Imported <span th:text="${#temporals.format(config.lastImported, 'yyyy-MM-dd HH:mm')}"></span>
+                        </span>
+                        <span th:unless="${config != null and config.lastImported != null}" class="badge bg-warning text-dark mb-2">Not yet imported</span>
+                        <br>
+                        <a th:href="@{/settings}" class="btn btn-primary btn-sm">Go to Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">2. Filter categories</h5>
+                    <p class="card-text text-muted flex-grow-1">Toggle group-titles on or off. Changes take effect immediately on the playlist URL.</p>
+                    <a th:href="@{/categories}" class="btn btn-primary btn-sm">Go to Categories</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">3. Subscribe</h5>
+                    <p class="card-text text-muted flex-grow-1">Point your IPTV player at the playlist URL below.</p>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control font-monospace"
+                               id="playlistUrl" readonly
+                               th:value="@{/playlist.m3u}">
+                        <button class="btn btn-outline-secondary" type="button"
+                                onclick="navigator.clipboard.writeText(document.getElementById('playlistUrl').value)">
+                            Copy
+                        </button>
+                    </div>
+                    <a th:href="@{/playlist.m3u}" class="btn btn-success btn-sm mt-2">Download playlist.m3u</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

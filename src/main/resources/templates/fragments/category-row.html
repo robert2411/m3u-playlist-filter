@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<tr th:fragment="row" th:id="'rule-' + ${rule.id}">
+    <td th:text="${rule.groupTitle}">Group Title</td>
+    <td th:text="${counts.getOrDefault(rule.groupTitle, 0)}">0</td>
+    <td>
+        <button th:attr="hx-post=|/categories/${rule.id}/toggle|"
+                hx-target="closest tr"
+                hx-swap="outerHTML"
+                th:class="'btn btn-sm ' + (${rule.included} ? 'btn-success' : 'btn-outline-secondary')"
+                th:text="${rule.included} ? 'Included' : 'Excluded'">
+            Toggle
+        </button>
+    </td>
+</tr>
+</body>
+</html>

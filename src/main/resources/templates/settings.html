@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Settings')}"></head>
+<body>
+<nav th:replace="~{layout :: nav}"></nav>
+<div class="container">
+    <h2 class="mb-4">Settings</h2>
+
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <div class="card mb-4">
+        <div class="card-header">Source URL</div>
+        <div class="card-body">
+            <form method="post" th:action="@{/settings/save}">
+                <div class="mb-3">
+                    <label for="sourceUrl" class="form-label">M3U Playlist URL</label>
+                    <input type="url" class="form-control" id="sourceUrl" name="sourceUrl"
+                           th:value="${config.sourceUrl}" placeholder="http://..." required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save URL</button>
+            </form>
+        </div>
+    </div>
+
+    <div th:if="${xtreamUrl}" class="card mb-4 border-success">
+        <div class="card-header bg-success text-white">Xtream Codes API URL (for your TV app)</div>
+        <div class="card-body">
+            <p class="mb-2">Point your TV app to this URL instead of the original playlist URL. It uses the Xtream Codes protocol so the app can browse categories without downloading the full playlist file.</p>
+            <div class="input-group">
+                <input type="text" class="form-control font-monospace" readonly th:value="${xtreamUrl}" id="xtreamUrlInput">
+                <button class="btn btn-outline-secondary" type="button"
+                        onclick="navigator.clipboard.writeText(document.getElementById('xtreamUrlInput').value)">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Import</div>
+        <div class="card-body">
+            <p class="text-muted mb-2" th:if="${config.lastImported != null}">
+                Last imported: <span th:text="${#temporals.format(config.lastImported, 'yyyy-MM-dd HH:mm:ss')}"></span>
+            </p>
+            <p class="text-muted mb-2" th:unless="${config.lastImported != null}">Never imported.</p>
+            <form method="post" th:action="@{/settings/import}">
+                <button type="submit" class="btn btn-success"
+                        th:disabled="${config.sourceUrl == null or config.sourceUrl.isBlank()}">
+                    Import Playlist
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

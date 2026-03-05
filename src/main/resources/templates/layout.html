@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' — M3U Filter'">M3U Filter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@2/dist/htmx.min.js"></script>
+</head>
+<body>
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/">M3U Filter</a>
+        <div class="navbar-nav">
+            <a class="nav-link" th:href="@{/settings}">Settings</a>
+            <a class="nav-link" th:href="@{/categories}">Categories</a>
+            <a class="nav-link" href="/playlist.m3u">Download Playlist</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

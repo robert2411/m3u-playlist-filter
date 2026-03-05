@@ -1,0 +1,11 @@
+services:
+  m3u-playlist-filter:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - playlist-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  playlist-data:
