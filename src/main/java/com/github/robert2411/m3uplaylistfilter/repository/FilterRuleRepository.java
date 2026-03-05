@@ -26,4 +26,8 @@ public interface FilterRuleRepository extends JpaRepository<FilterRule, Long> {
     @Modifying
     @Query("UPDATE FilterRule f SET f.included = false WHERE NOT EXISTS (SELECT e FROM PlaylistEntry e WHERE e.groupTitle = f.groupTitle)")
     int excludeEmptyGroups();
+
+    @Modifying
+    @Query("DELETE FROM FilterRule f WHERE NOT EXISTS (SELECT e FROM PlaylistEntry e WHERE e.groupTitle = f.groupTitle)")
+    int deleteEmptyGroups();
 }
