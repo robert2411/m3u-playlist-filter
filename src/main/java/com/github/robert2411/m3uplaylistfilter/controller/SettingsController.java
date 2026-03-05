@@ -32,19 +32,18 @@ public class SettingsController {
     @Value("${xtream.password}")
     private String xtreamPassword;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     private final SourceConfigRepository sourceRepo;
     private final FilterRuleRepository filterRepo;
     private final M3uImportService importService;
-    private final ObjectMapper objectMapper;
 
     public SettingsController(SourceConfigRepository sourceRepo,
                               FilterRuleRepository filterRepo,
-                              M3uImportService importService,
-                              ObjectMapper objectMapper) {
+                              M3uImportService importService) {
         this.sourceRepo = sourceRepo;
         this.filterRepo = filterRepo;
         this.importService = importService;
-        this.objectMapper = objectMapper;
     }
 
     @GetMapping("/settings")
